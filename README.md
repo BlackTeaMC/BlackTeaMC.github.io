@@ -1,0 +1,1 @@
+Hello, everybody, this is my first Website and It might have some um...Little bug,I will continue to optimize it and strive to make it a better website. However, please note that all the age verification methods mentioned here are just for fun and should not be taken seriously.
