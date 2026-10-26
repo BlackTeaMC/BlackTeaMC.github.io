@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean studio瀚海工作室</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 80%;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 初始确认界面 -->
+    <div class="container" id="age-check">
+        <h1>年龄验证</h1>
+        <p>本站内容仅限特定年龄段访问。<br>请确认你已满足要求。</p>
+        <button onclick="confirmAge()">确 认</button>
+    </div>
+
+    <!-- 验证成功界面 (默认隐藏) -->
+    <div class="container" id="success-page" style="display: none;">
+        <h1>Ocean studio瀚海工作室</h1>
+        <p>欢迎来到 BlackTeaMC 的鬼点子。</p>
+    </div>
+
+    <script>
+        function confirmAge() {
+            document.getElementById('age-check').style.display = 'none';
+            document.getElementById('success-page').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
