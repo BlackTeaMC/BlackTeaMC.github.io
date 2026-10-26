@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean studio瀚海工作室</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        /* 黑底警告弹窗 */
+        .warning-container {
+            background: #222;
+            color: #fff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            max-width: 85%;
+            width: 320px;
+        }
+        .warning-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            color: #ff4757;
+        }
+        .warning-container h1 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .warning-container p {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        button {
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            flex: 1;
+        }
+        .btn-confirm {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-reject {
+            background-color: #444;
+            color: #aaa;
+        }
+        /* 人机验证界面 */
+        .captcha-container {
+            background: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 85%;
+            width: 320px;
+            display: none;
+        }
+        .slider {
+            width: 100%;
+            height: 40px;
+            background: #eee;
+            border-radius: 5px;
+            margin-top: 20px;
+            position: relative;
+            text-align: center;
+            line-height: 40px;
+            color: #666;
+            user-select: none;
+        }
+        .slider-btn {
+            width: 40px;
+            height: 40px;
+            background: #007bff;
+            color: white;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 5px;
+            cursor: pointer;
+            line-height: 40px;
+            padding: 0;
+            flex: none;
+        }
+        /* 成功界面 */
+        .success-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 85%;
+            width: 320px;
+            display: none;
+        }
+        .success-container h1 {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 黑底警告/年龄验证界面 -->
+    <div class="warning-container" id="age-check">
+        <div class="warning-icon">⚠️</div>
+        <h1>年龄验证</h1>
+        <p>本站内容仅限特定年龄段访问。<br>请确认你已满足要求。</p>
+        <div class="btn-group">
+            <button class="btn-reject" onclick="rejectAge()">拒绝</button>
+            <button class="btn-confirm" onclick="confirmAge()">确认</button>
+        </div>
+    </div>
+
+    <!-- 拒绝提示界面 -->
+    <div class="warning-container" id="reject-page" style="display: none;">
+        <div class="warning-icon">🚫</div>
+        <h1>访问被拒绝</h1>
+        <p>抱歉，未成年人暂时不能访问本网站。</p>
+    </div>
+
+    <!-- 人机验证界面 -->
+    <div class="captcha-container" id="captcha-page">
+        <h1>人机验证</h1>
+        <p>请按住滑块拖动到最右侧</p>
+        <div class="slider" id="slider" onmousemove="slide(event)" onmouseup="checkSlide()">
+            <div class="slider-btn" id="slider-btn" onmousedown="startSlide(event)">→</div>
+        </div>
+    </div>
+
+    <!-- 成功界面 -->
+    <div class="success-container" id="success-page">
+        <h1>Ocean studio瀚海工作室</h1>
+        <p>欢迎来到 BlackTeaMC 的鬼点子。</p>
+    </div>
+
+    <script>
+        let isSliding = false;
+        let startX = 0;
+        let currentX = 0;
+        const sliderBtn = document.getElementById('slider-btn');
+        const slider = document.getElementById('slider');
+
+        function confirmAge() {
+            document.getElementById('age-check').style.display = 'none';
+            document.getElementById('captcha-page').style.display = 'block';
+        }
+
+        function rejectAge() {
+            document.getElementById('age-check').style.display = 'none';
+            document.getElementById('reject-page').style.display = 'block';
+        }
+
+        function startSlide(e) {
+            isSliding = true;
+            startX = e.clientX;
+        }
+
+        function slide(e) {
+            if (!isSliding) return;
+            currentX = e.clientX -
